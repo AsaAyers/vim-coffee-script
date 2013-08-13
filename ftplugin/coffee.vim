@@ -221,7 +221,7 @@ function! s:CoffeeLint(startline, endline, bang, args)
   let qflist = []
 
   for line in lines
-    let match = matchlist(line, '\f\+,\(\d\+\),error,\(.\+\)')
+    let match = matchlist(line, '\f\+,\(\d\+\),\(\d+,)?error,\(.\+\)')
 
     " Ignore invalid lines.
     if !len(match)
@@ -235,7 +235,7 @@ function! s:CoffeeLint(startline, endline, bang, args)
       continue
     endif
 
-    let text = match[2]
+    let text = match[3]
 
     call add(qflist, {'bufnr': bufnr('%'), 'lnum': lnum, 'text': text})
   endfor
